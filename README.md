@@ -71,7 +71,7 @@
 }
 > 
 #### Get resource list
-- url (Get) - **localhost:5559/v1/drone/available/**
+- url (Get) - **http://localhost:7661/v1/crud/read**
 - > Respinse : {
   "message": "Load all Responses",
   "resourceList": [
