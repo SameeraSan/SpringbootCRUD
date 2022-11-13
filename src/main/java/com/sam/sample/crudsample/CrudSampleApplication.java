@@ -7,7 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CrudSampleApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(CrudSampleApplication.class, args);
+//		System.out.println(">>>>>>>>>>>>>>>>");
+
 	}
 
 }
