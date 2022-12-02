@@ -1,7 +1,9 @@
 package com.sam.sample.crudsample.controller;
 
+import com.sam.sample.crudsample.dto.Merchant;
 import com.sam.sample.crudsample.dto.RequestDto;
 import com.sam.sample.crudsample.dto.ResponseDto;
+import com.sam.sample.crudsample.service.MerchantService;
 import com.sam.sample.crudsample.service.ServiceCRUD;
 import com.sun.istack.NotNull;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +23,9 @@ import javax.validation.Valid;
 public class ControllerCRUD {
 
     ServiceCRUD serviceCRUD;
+
+    @Autowired
+    MerchantService merchantService;
 
     @Autowired
     public ControllerCRUD(ServiceCRUD serviceCRUD) {
@@ -52,13 +57,27 @@ public class ControllerCRUD {
     public ResponseEntity<ResponseDto> updateResource(@Valid @NotNull @RequestBody RequestDto request) throws Exception {
         log.info("Update Service");
         ResponseDto response = serviceCRUD.updateResource(request);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @DeleteMapping (value = "/delete", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto> deleteResource(@Valid @NotNull @RequestBody RequestDto request) throws Exception {
         log.info("Delete Service");
         ResponseDto response = serviceCRUD.deleteResource(request);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/merchant/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Merchant> createMerchant(@Valid @NotNull @RequestBody Merchant request) throws Exception {
+        log.info("Create Merchant");
+        Merchant response = merchantService.createMerchant(request.getName(),request.getMerchantId());
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping (value = "/merchant/delete", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseDto> deleteResource(@Valid @NotNull @RequestBody Merchant request) throws Exception {
+        log.info("Delete Merchant");
+        merchantService.deleteMerchant(request.getMerchantId());
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 }
